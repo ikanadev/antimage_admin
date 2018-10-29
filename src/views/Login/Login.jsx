@@ -1,14 +1,11 @@
 import React from 'react'
-import {
-  Typography
-} from '@material-ui'
+
+import Particles from '../../components/Particles'
 
 export default function Login() {
   return (
     <div>
-      <Typography variant="h1">
-        LOGIN COMPONENT
-      </Typography>
+      <Particles />
     </div>
   )
 }

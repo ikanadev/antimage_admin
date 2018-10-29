@@ -8,8 +8,15 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#1b5299'
+      main: '#3949ab'
+    },
+    secondary: {
+      main: '#d32f2f'
     }
+  },
+  typography: {
+    fontFamily: ['Ubuntu', 'Helvetica', 'Arial', 'sans-serif'].join(','),
+    useNextVariants: true
   }
 })
 /**

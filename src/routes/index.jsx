@@ -1,6 +1,6 @@
 import React from 'react'
 import Login from '../views/Login/Login'
-import mobileDetector from '../assets/mobileDetector'
+import mobileDetector from '../utils/mobileDetector'
 
 const isMobile = mobileDetector()
 const indexRoutes = [
