@@ -36,6 +36,8 @@
             "ArrowFunctionExpression": false,
             "FunctionExpression": false
         }
-    }]
+    }],
+    "max-len": ["error", { "code": 150 }],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
   }
 }
