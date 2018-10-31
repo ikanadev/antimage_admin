@@ -3,10 +3,10 @@ const styles = () => ({
     position: 'fixed',
     zIndex: 3,
     height: '100%',
-    transform: 'translateY(-150px)'
+    transform: 'translateY(-10px)'
   },
   paperContainer: {
-    padding: 30,
+    padding: 70,
     position: 'relative'
   },
   iconTop: {
@@ -18,6 +18,17 @@ const styles = () => ({
     position: 'absolute',
     bottom: 15,
     right: 15
+  },
+  cardHidden: {
+    opacity: 0,
+    transform: 'translate3d(0, -60px, 0)'
+  },
+  input: {
+    marginTop: '20px',
+    padding: '10px 20px',
+    background: 'white',
+    boxShadow: '0 5px 8px 2px #888',
+    borderRadius: '25px / 50%'
   }
 })
 export default styles
