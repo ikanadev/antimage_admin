@@ -4,9 +4,10 @@ import building from '../../assets/images/building.png'
 const styles = () => ({
   container: {
     overflow: 'hidden',
-    position: 'relative'
+    position: 'absolute'
   },
   pixie: {
+    position: 'absolute',
     zIndex: 0,
     background: 'gradient(linear, left top, left bottom, color-stop(0%,#040429), color-stop(100%,#257eb7))'
   },
