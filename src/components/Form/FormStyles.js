@@ -1,4 +1,4 @@
-const styles = () => ({
+const styles = theme => ({
   container: {
     position: 'fixed',
     zIndex: 3,
@@ -7,17 +7,26 @@ const styles = () => ({
   },
   paperContainer: {
     padding: 70,
-    position: 'relative'
+    paddingTop: 95,
+    position: 'relative',
+    transition: 'all 0.8s',
+    borderRadius: '2% 20%',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: 60,
+      paddingBottom: 55,
+      paddingLeft: 30,
+      paddingRight: 30
+    }
   },
   iconTop: {
     position: 'absolute',
-    top: 15,
-    left: 15
+    top: 20,
+    left: 20
   },
   iconBot: {
     position: 'absolute',
-    bottom: 15,
-    right: 15
+    bottom: 20,
+    right: 20
   },
   cardHidden: {
     opacity: 0,
@@ -27,8 +36,23 @@ const styles = () => ({
     marginTop: '20px',
     padding: '10px 20px',
     background: 'white',
+    boxShadow: '0 5px 12px 2px #888',
+    borderRadius: '25px / 50%',
+    transition: 'all 0.4s',
+    '&:hover': {
+      boxShadow: '0 3px 4px 2px #888',
+      transform: 'scale(0.985)'
+    }
+  },
+  button: {
     boxShadow: '0 5px 8px 2px #888',
-    borderRadius: '25px / 50%'
+    marginTop: 32,
+    marginBottom: 25,
+    borderRadius: '20px / 50%',
+    padding: '10px 20px'
+  },
+  rightIcon: {
+    marginLeft: 17
   }
 })
 export default styles
