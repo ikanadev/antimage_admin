@@ -1,7 +1,6 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-import { createBrowserHistory } from 'history'
-import { Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
 
@@ -21,14 +20,12 @@ if (module.hot) {
   })
 }
 
-const hist = createBrowserHistory()
-
 const App = () => (
   <Provider store={store}>
-    <Router history={hist}>
+    <Router>
       <Switch>
         {indexRoutes.map(prop => (
-          <Route path={prop.path} key={prop.id} component={prop.component} />
+          <Route exact={prop.exact} path={prop.path} key={prop.id} component={prop.component} />
         ))}
       </Switch>
     </Router>
