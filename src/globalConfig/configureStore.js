@@ -1,21 +1,17 @@
-import { createStore, applyMiddleware } from 'redux'
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import * as reducers from '../state/ducks'
+import { apiService, createLogger } from '../middlewares'
 
-import rootReducer from '../reducers'
-
-const middleware = applyMiddleware(thunk, logger)
-
-export default function configureStore() {
-  const store = createStore(rootReducer, middleware)
-
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers') // eslint-disable-line
-      store.replaceReducer(nextRootReducer)
-    })
-  }
-
-  return store
+export default function configureStore(initialState) {
+  const rootReducer = combineReducers(reducers)
+  return createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(
+      apiService,
+      thunkMiddleware,
+      createLogger(true)
+    ),
+  )
 }

@@ -11,14 +11,15 @@ import configureStore from './globalConfig/configureStore'
 // ej. redux provider, context, etc
 import './assets/fonts.css'
 
-const store = configureStore()
-if (module.hot) {
+const store = configureStore({})
+console.log(store.getState())
+/* if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('./reducers', () => {
     const nextRootReducer = require('./reducers') // eslint-disable-line
     store.replaceReducer(nextRootReducer)
   })
-}
+} */
 
 const App = () => (
   <Provider store={store}>

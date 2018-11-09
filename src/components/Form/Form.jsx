@@ -19,9 +19,9 @@ class Form extends Component {
   constructor() {
     super()
     this.state = {
-      email: '',
+      correo: '',
       password: '',
-      emailFocus: false,
+      correoFocus: false,
       passwordFocus: false,
       cardAnimation: 'cardHidden',
       showPassword: false
@@ -48,11 +48,11 @@ class Form extends Component {
     const { name } = e.target
     this.setState(prevState => (Object.assign(
       {
-        emailFocus: prevState.email !== '' || false,
+        correoFocus: prevState.correo !== '' || false,
         passwordFocus: prevState.password !== '' || false
       },
       {
-        [`${name}Focus`]: (prevState.email !== '' || prevState.password !== '') ? true : value
+        [`${name}Focus`]: (prevState.correo !== '' || prevState.password !== '') ? true : value
       }
     )))
   }
@@ -63,12 +63,19 @@ class Form extends Component {
     }))
   }
 
+  handleSubmit = () => {
+    const { login } = this.props
+    const body = (({ correo, password }) => ({ correo, password }))(this.state)
+    console.log(login)
+    login(body)
+  }
+
   render() {
     const { classes } = this.props
     const {
-      email, password, emailFocus, passwordFocus, showPassword, cardAnimation
+      correo, password, correoFocus, passwordFocus, showPassword, cardAnimation
     } = this.state
-    const emailColor = emailFocus ? 'primary' : 'disabled'
+    const correoColor = correoFocus ? 'primary' : 'disabled'
     const passwordColor = passwordFocus ? 'primary' : 'disabled'
     return (
       <Grid container className={classes.container} justify="center" alignItems="center">
@@ -91,15 +98,15 @@ class Form extends Component {
                 onChange={this.handleChange}
                 onFocus={this.handleFocus(true)}
                 onBlur={this.handleFocus(false)}
-                value={email}
+                value={correo}
                 placeholder="   Correo"
                 className={classes.input}
                 inputProps={{
-                  name: 'email'
+                  name: 'correo'
                 }}
                 startAdornment={(
                   <InputAdornment position="start">
-                    <AlternateEmailIcon color={emailColor} />
+                    <AlternateEmailIcon color={correoColor} />
                   </InputAdornment>
                 )}
               />
@@ -135,7 +142,13 @@ class Form extends Component {
                   </InputAdornment>
                 )}
               />
-              <Button variant="contained" color="primary" fullWidth className={classes.button}>
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                className={classes.button}
+                onClick={this.handleSubmit}
+              >
                 Ingresar
                 <SendIcon className={classes.rightIcon} />
               </Button>
