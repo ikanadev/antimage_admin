@@ -29,7 +29,6 @@ class Particles extends Component {
     const bgpG = getComputedStyle($grass).backgroundPosition
     const om = parseInt(bgpM.substr(0, bgpM.search(' ')), 10)
     const og = parseInt(bgpG.substr(0, bgpG.search(' ')), 10)
-    console.log(om, og)
     document.addEventListener('mousemove', (e) => {
       $mountains.style.backgroundPosition = `${om + e.clientX / 10}px 0px`
       $grass.style.backgroundPosition = `${og + e.clientX / 4}px 10px`

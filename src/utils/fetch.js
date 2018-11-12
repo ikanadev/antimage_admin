@@ -3,14 +3,7 @@ import isomorphicFetch from 'isomorphic-fetch'
 function parseStatus(status, res) {
   return new Promise((resolve, reject) => {
     if (status >= 200 && status < 300) {
-      res.then((response) => {
-        console.log(response)
-        if (response.code >= 200 && response.code < 300) {
-          resolve(response)
-        } else {
-          reject({ status, response }) // eslint-disable-line
-        }
-      })
+      res.then((response) => { resolve(response) })
     } else {
       res.then(response => reject({ status, response })) // eslint-disable-line
     }

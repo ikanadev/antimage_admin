@@ -66,7 +66,6 @@ class Form extends Component {
   handleSubmit = () => {
     const { login } = this.props
     const body = (({ correo, password }) => ({ correo, password }))(this.state)
-    console.log(login)
     login(body)
   }
 
