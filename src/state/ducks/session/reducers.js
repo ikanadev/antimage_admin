@@ -10,14 +10,24 @@ import { createReducer } from '../../../utils'
 */
 
 const authReducer = createReducer(false)({
-  [types.LOGIN_COMPLETED]: () => true,
+  [types.LOGIN_COMPLETED]: (state, action) => (
+    action.payload.code >= 200 && action.payload.code < 300
+  ),
   [types.LOGOUT]: () => false
 })
-
-const admin = createReducer({})({
+const defaultAdmin = {
+  apellidos: 'User',
+  correo: 'admin@user.com',
+  nombres: 'User',
+  tipo: null
+}
+const adminReducer = createReducer(defaultAdmin)({
   [types.LOGIN_COMPLETED]: (state, action) => {
-    console.log(state, action)
-    return action
+    const { code, content } = action.payload
+    if (code >= 200 && code < 300) {
+      return content.data.admin
+    }
+    return defaultAdmin
   }
 })
 
@@ -26,7 +36,7 @@ const redirectAfterLoginReducer = createReducer(null)({
 })
 
 export default combineReducers({
-  admin,
+  admin: adminReducer,
   isAuthenticated: authReducer,
   redirectAfterLogin: redirectAfterLoginReducer
 })
