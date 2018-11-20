@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
 import Typography from '@material-ui/core/Typography'
 import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
 
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -34,7 +35,7 @@ class MiniDrawer extends React.Component {
   }
 
   render() {
-    const { classes, theme } = this.props
+    const { classes, theme, logout } = this.props
     const { open } = this.state
 
     return (
@@ -59,6 +60,7 @@ class MiniDrawer extends React.Component {
             <Typography variant="h6" color="inherit" noWrap>
               Mini variant drawer
             </Typography>
+            <Button onClick={logout}>Logout</Button>
           </Toolbar>
         </AppBar>
         <Drawer

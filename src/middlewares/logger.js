@@ -9,12 +9,22 @@ const SUCCESS = [
 ].join(';')
 
 const STARTED = [
+  'background: navy',
+  'color: white'
+].join(';')
+
+const WARNING = [
   'background: darkorange',
   'color: white'
 ].join(';')
 
-const FAILURE = [
+const FATAL = [
   'background: red',
+  'color: white'
+].join(';')
+
+const FAILURE = [
+  'background: orangered',
   'color: white'
 ].join(';')
 
@@ -44,6 +54,14 @@ function determineStyle(action) {
 
   if (action.type.indexOf('_FAILED') > -1) {
     return FAILURE
+  }
+
+  if (action.type.indexOf('_WARNING') > -1) {
+    return WARNING
+  }
+
+  if (action.type.indexOf('_FATAL') > -1) {
+    return FATAL
   }
 
   return STARTED

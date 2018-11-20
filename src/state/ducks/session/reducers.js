@@ -8,35 +8,69 @@ import { createReducer } from '../../../utils'
     redirectAfterLogin: string
 }
 */
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+const carrer = localStorage.getItem('carrer')
 
-const authReducer = createReducer(false)({
-  [types.LOGIN_COMPLETED]: (state, action) => (
-    action.payload.code >= 200 && action.payload.code < 300
-  ),
-  [types.LOGOUT]: () => false
-})
-const defaultAdmin = {
-  apellidos: 'User',
-  correo: 'admin@user.com',
-  nombres: 'User',
-  tipo: null
-}
-const adminReducer = createReducer(defaultAdmin)({
+const logged = !!token && !!user && !!carrer
+
+const authReducer = createReducer(logged)({
   [types.LOGIN_COMPLETED]: (state, action) => {
     const { code, content } = action.payload
-    if (code >= 200 && code < 300) {
-      return content.data.admin
+    if (parseInt(code, 10) === 200) {
+      localStorage.setItem('token', JSON.stringify(content.token))
+      localStorage.setItem('user', JSON.stringify(content.data.admin))
+      localStorage.setItem('carrer', JSON.stringify(content.data.carrer))
+      return true
     }
-    return defaultAdmin
+    return false
+  },
+  [types.LOGOUT]: () => {
+    localStorage.clear()
+    return false
+  },
+  [types.LOGIN_WARNING]: () => {
+    localStorage.clear()
+    return false
+  },
+  [types.LOGIN_FAILED]: () => {
+    localStorage.clear()
+    return false
+  },
+  [types.LOGIN_FATAL]: () => {
+    localStorage.clear()
+    return false
   }
 })
-
-const redirectAfterLoginReducer = createReducer(null)({
-  [types.SET_REDIRECT_AFTER_LOGIN]: (state, action) => action.payload.redirectUrl
+const defaultAdmin = {
+  apellidos: '',
+  correo: '',
+  nombres: '',
+  tipo: null
+}
+const adminReducer = createReducer(user ? JSON.parse(user) : defaultAdmin)({
+  [types.LOGIN_COMPLETED]: (state, action) => {
+    const { code, content } = action.payload
+    return parseInt(code, 10) === 200 ? content.data.admin : defaultAdmin
+  },
+  [types.LOGOUT]: () => defaultAdmin
+})
+const defaultCarrer = {
+  id: 0,
+  nombre: '',
+  urlLogo: '',
+  descripcion: ''
+}
+const carrerReducer = createReducer(carrer ? JSON.parse(carrer) : defaultCarrer)({
+  [types.LOGIN_COMPLETED]: (state, action) => {
+    const { code, content } = action.payload
+    return parseInt(code, 10) === 200 ? content.data.carrer : defaultCarrer
+  },
+  [types.LOGOUT]: () => defaultCarrer
 })
 
 export default combineReducers({
   admin: adminReducer,
   isAuthenticated: authReducer,
-  redirectAfterLogin: redirectAfterLoginReducer
+  carrer: carrerReducer
 })

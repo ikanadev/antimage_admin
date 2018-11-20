@@ -5,7 +5,7 @@ const baseUrl = 'http://127.0.0.1/antimage_api'
 
 function handleErrors(err, action, next) {
   next({
-    type: `${action.type}_FAILED`,
+    type: `${action.type}_FATAL`,
     payload: err,
     meta: action.meta
   })
@@ -14,12 +14,28 @@ function handleErrors(err, action, next) {
 }
 
 function handleResponse(res, action, next) {
+  console.log(res)
+  const code = parseInt(res.code, 10)
+  let suffix = ''
+  switch (true) {
+    case (code === 200):
+      suffix = 'COMPLETED'
+      break
+    case (code >= 300 && code < 500):
+      suffix = 'WARNING'
+      break
+    case (code >= 500):
+      suffix = 'FAILED'
+      break
+    default:
+      suffix = 'FATAL'
+      break
+  }
   next({
-    type: `${action.type}_COMPLETED`,
+    type: `${action.type}_${suffix}`,
     payload: res,
     meta: action.meta
   })
-
   return res
 }
 

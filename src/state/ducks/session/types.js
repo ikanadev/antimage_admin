@@ -1,6 +1,8 @@
 export const LOGIN = 'LOGIN'
 export const LOGIN_COMPLETED = 'LOGIN_COMPLETED'
+export const LOGIN_WARNING = 'LOGIN_WARNING'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
+export const LOGIN_FATAL = 'LOGIN_FATAL'
 export const LOGOUT = 'LOGOUT'
 export const INITIALIZE = 'INITIALIZE'
 export const SET_REDIRECT_AFTER_LOGIN = 'SET_REDIRECT_AFTER_LOGIN'
