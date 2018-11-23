@@ -14,7 +14,6 @@ function handleErrors(err, action, next) {
 }
 
 function handleResponse(res, action, next) {
-  console.log(res)
   const code = parseInt(res.code, 10)
   let suffix = ''
   switch (true) {

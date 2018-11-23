@@ -6,19 +6,20 @@ import Particles from '../../components/Particles/Particles'
 import Form from '../../components/Form/Form'
 import { sessionOperations } from '../../state/ducks/session'
 
-function Login({ login, isAuthenticated }) {
+function Login({ login, isAuthenticated, loading }) {
   if (isAuthenticated) {
     return <Redirect to="/" />
   }
   return (
     <div>
       <Particles maxParticles={120} drawInterval={100} />
-      <Form login={login} />
+      <Form login={login} isLoading={loading} />
     </div>
   )
 }
 const mapStateToProps = state => ({
-  isAuthenticated: state.session.isAuthenticated
+  isAuthenticated: state.session.isAuthenticated,
+  loading: state.session.loading
 })
 
 const mapDispatchToProps = {
