@@ -1,11 +1,19 @@
 import React from 'react'
 import Login from '../views/Login/Login'
 import Protected from '../views/Protected/Protected'
+import Home from '../views/Home'
 import mobileDetector from '../utils/mobileDetector'
 import withAuthentication from '../utils/enhancers/withAuthentication'
 
 const isMobile = mobileDetector()
 const indexRoutes = [
+  {
+    id: 0,
+    path: '/',
+    name: 'Home',
+    exact: true,
+    component: () => <Home />
+  },
   {
     id: 1,
     path: '/login',
@@ -15,10 +23,12 @@ const indexRoutes = [
   },
   {
     id: 2,
-    path: '/',
+    path: '/admin',
     name: 'Protected',
-    exact: true,
-    component: withAuthentication((() => (<Protected isMobile={isMobile} />)))
+    exact: false,
+    component: withAuthentication((props => (
+      <Protected {...props} isMobile={isMobile} />
+    )))
   }
 ]
 

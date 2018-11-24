@@ -3,14 +3,19 @@ import { connect } from 'react-redux'
 import { sessionOperations } from '../../state/ducks/session'
 import Drawer from '../../components/Drawer/Drawer'
 
-const Protected = ({ logout }) => (
+const Protected = props => (
   <div>
-    <Drawer logout={logout} />
+    <Drawer {...props} />
   </div>
 )
+
+const mapStateToProps = state => ({
+  admin: state.session.admin,
+  carrer: state.session.carrer
+})
 
 const mapDispatchToProps = {
   logout: sessionOperations.logout
 }
 
-export default connect(null, mapDispatchToProps)(Protected)
+export default connect(mapStateToProps, mapDispatchToProps)(Protected)

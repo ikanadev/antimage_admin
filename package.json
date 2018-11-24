@@ -6,7 +6,7 @@
   "author": "taylor <kredmercury@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --hot --mode development --progress --colors --config ./webpack.config.js --host 192.168.0.13",
+    "start": "webpack-dev-server --hot --mode development --progress --colors --config ./webpack.config.js --host 192.168.88.24",
     "build": "webpack --mode production --config ./webpack.config.prod.js"
   },
   "devDependencies": {

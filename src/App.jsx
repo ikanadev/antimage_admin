@@ -12,7 +12,6 @@ import configureStore from './globalConfig/configureStore'
 import './assets/fonts.css'
 
 const store = configureStore({})
-console.log(store.getState())
 /* if (module.hot) {
   // Enable Webpack hot module replacement for reducers
   module.hot.accept('./reducers', () => {

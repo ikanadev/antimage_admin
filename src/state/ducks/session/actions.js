@@ -15,8 +15,8 @@ export const logout = () => ({
   type: types.LOGOUT
 })
 
-export const initializeSession = () => ({
-  type: types.INITIALIZE
+export const resetError = () => ({
+  type: types.RESET_ERROR
 })
 
 export const setRedirectAfterLogin = () => ({

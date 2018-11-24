@@ -1,10 +1,10 @@
 import {
-  login, logout, initializeSession, setRedirectAfterLogin
+  login, logout, resetError, setRedirectAfterLogin
 } from './actions'
 
 export {
   login,
   logout,
-  initializeSession,
+  resetError,
   setRedirectAfterLogin
 }

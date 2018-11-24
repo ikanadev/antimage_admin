@@ -78,16 +78,18 @@ const loadingReducer = createReducer(false)({
 })
 
 const errorTypeReducer = createReducer(null)({
-  [types.LOGIN_FAILED]: () => 'FAIL',
-  [types.LOGIN_WARNING]: () => 'WARNING',
-  [types.LOGIN_FATAL]: () => 'FATAL',
+  [types.LOGIN_FAILED]: () => 'fail',
+  [types.LOGIN_WARNING]: () => 'warning',
+  [types.LOGIN_FATAL]: () => 'fatal',
   [types.LOGIN_COMPLETED]: () => null,
-  [types.LOGIN]: () => null
+  [types.LOGIN]: () => null,
+  [types.RESET_ERROR]: () => null
 })
 
 const errorMsgReducer = createReducer('')({
   [types.LOGIN_COMPLETED]: () => null,
   [types.LOGIN]: () => null,
+  [types.RESET_ERROR]: () => null,
   [types.LOGIN_FAILED]: (state, action) => action.payload.usrmsg,
   [types.LOGIN_WARNING]: (state, action) => action.payload.usrmsg,
   [types.LOGIN_FATAL]: (state, action) => action.payload

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Grid, Paper, Typography, Input, InputAdornment, IconButton, Button
+  Grid, Paper, Typography, Input, InputAdornment, IconButton, Button, CircularProgress
 } from '@material-ui'
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
@@ -10,14 +10,15 @@ import VisibilityIcon from '@material-ui/icons/VisibilityOutlined'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOffOutlined'
 import SendIcon from '@material-ui/icons/SendOutlined'
 
+import SnackMsg from '../SnackMsg/SnackMsg'
 import Engineer from '../Logos/Engineer'
 import Settings from '../Logos/Settings'
 
 import styles from './FormStyles'
 
 class Form extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       correo: '',
       password: '',
@@ -70,12 +71,25 @@ class Form extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const {
+      classes, isLoading, errorMsg, errorType, resetError
+    } = this.props
     const {
       correo, password, correoFocus, passwordFocus, showPassword, cardAnimation
     } = this.state
     const correoColor = correoFocus ? 'primary' : 'disabled'
     const passwordColor = passwordFocus ? 'primary' : 'disabled'
+    let snack = null
+    if (errorType) {
+      snack = (
+        <SnackMsg
+          variant={errorType}
+          message={errorMsg}
+          onClose={resetError}
+        />
+      )
+    }
+
     return (
       <Grid container className={classes.container} justify="center" alignItems="center">
         <Grid item xs={10} md={6} lg={4} xl={3}>
@@ -89,6 +103,9 @@ class Form extends Component {
             <Typography align="center" variant="h4" component="h3" color="primary">
               Antimage Administración
             </Typography>
+            <br />
+            <br />
+            { snack }
             <br />
             <form>
               <Input
@@ -141,16 +158,25 @@ class Form extends Component {
                   </InputAdornment>
                 )}
               />
-              <Button
-                variant="contained"
-                color="primary"
-                fullWidth
-                className={classes.button}
-                onClick={this.handleSubmit}
-              >
-                Ingresar
-                <SendIcon className={classes.rightIcon} />
-              </Button>
+              <div className={classes.wrapper}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  className={classes.button}
+                  onClick={this.handleSubmit}
+                  disabled={isLoading}
+                  type="submit"
+                >
+                  Ingresar
+                  <SendIcon className={classes.rightIcon} />
+                </Button>
+                {
+                  isLoading
+                    ? <CircularProgress thickness={7} size={30} className={classes.buttonProgress} />
+                    : null
+                }
+              </div>
             </form>
           </Paper>
         </Grid>

@@ -1,10 +1,11 @@
-const drawerWidth = 240
+const drawerWidth = 280
 const styles = theme => ({
   root: {
     display: 'flex'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    paddingRight: 15,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -24,6 +25,9 @@ const styles = theme => ({
   },
   hide: {
     display: 'none'
+  },
+  title: {
+    flexGrow: 1
   },
   drawerPaper: {
     position: 'relative',
