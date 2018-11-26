@@ -59,6 +59,14 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3
+  },
+  floatMenu: {
+    paddingLeft: 30,
+    paddingRight: 30
+  },
+  link: {
+    color: 'black',
+    textDecoration: 'none'
   }
 })
 
