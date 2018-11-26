@@ -74,7 +74,6 @@ class MiniDrawer extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const {
       classes, theme, logout, carrer, admin, match, location
     } = this.props

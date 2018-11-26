@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Grid, Paper, Typography, Input, InputAdornment, IconButton, Button, CircularProgress
+  Grid, Paper, Typography, Input, InputAdornment, IconButton
 } from '@material-ui'
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
@@ -13,6 +13,7 @@ import SendIcon from '@material-ui/icons/SendOutlined'
 import SnackMsg from '../SnackMsg/SnackMsg'
 import Engineer from '../Logos/Engineer'
 import Settings from '../Logos/Settings'
+import AButton from '../AButton/AButton'
 
 import styles from './FormStyles'
 
@@ -159,25 +160,15 @@ class Form extends Component {
                   </InputAdornment>
                 )}
               />
-              <div className={classes.wrapper}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  className={classes.button}
-                  onClick={this.handleSubmit}
-                  disabled={isLoading}
-                  type="submit"
-                >
-                  Ingresar
-                  <SendIcon className={classes.rightIcon} />
-                </Button>
-                {
-                  isLoading
-                    ? <CircularProgress thickness={7} size={30} className={classes.buttonProgress} />
-                    : null
-                }
-              </div>
+              <AButton
+                text="Ingresar"
+                isLoading={isLoading}
+                onClick={this.handleSubmit}
+                type="submit"
+                icon={<SendIcon />}
+              />
+              <br />
+              <br />
             </form>
           </Paper>
         </Grid>

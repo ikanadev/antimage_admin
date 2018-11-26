@@ -10,17 +10,23 @@ function parseStatus(status, res) {
   })
 }
 
-function requestHeaders() {
-  return {
+function requestHeaders(url) {
+  const headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json'
   }
+  if (url.indexOf('login') >= 0) {
+    return headers
+  }
+  return Object.assign(headers, {
+    Authorization: localStorage.getItem('token')
+  })
 }
 
 export default (url, method, body) => {
   const options = {
     method,
-    headers: requestHeaders(),
+    headers: requestHeaders(url),
     body: method !== 'GET' ? JSON.stringify(body) : null
   }
 

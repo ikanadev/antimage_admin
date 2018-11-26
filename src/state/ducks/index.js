@@ -1,1 +1,2 @@
-export { default as session } from './session' // eslint-disable-line
+export { default as session } from './session'
+export { default as personal } from './personal'
