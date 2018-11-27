@@ -22,6 +22,11 @@ class Profile extends Component {
       correo: props.admin.correo,
       password: ''
     }
+    this.defaultUser = {
+      nombres: props.admin.nombres,
+      apellidos: props.admin.apellidos,
+      correo: props.admin.correo
+    }
   }
 
   componentDidMount = () => {
@@ -35,8 +40,17 @@ class Profile extends Component {
   }
 
   handleUpdate = () => {
-    const { update } = this.props
+    const { update, updateUser } = this.props
+    console.log(update)
     update(this.state)
+    updateUser(
+      (({ nombres, apellidos, correo }) => ({ nombres, apellidos, correo }))(this.state)
+    )
+  }
+
+  setDefault = () => {
+    const { updateUser } = this.props
+    updateUser(this.defaultUser)
   }
 
   render() {
@@ -48,6 +62,7 @@ class Profile extends Component {
     } = this.state
     let snack = null
     if (errorType) {
+      this.setDefault()
       snack = (
         <SnackMsg
           variant={errorType}

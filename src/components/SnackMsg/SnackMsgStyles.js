@@ -24,6 +24,9 @@ const styles = theme => ({
   message: {
     display: 'flex',
     alignItems: 'center'
+  },
+  cont: {
+    maxWidth: '100%'
   }
 })
 

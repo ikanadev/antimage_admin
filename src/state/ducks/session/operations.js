@@ -1,10 +1,10 @@
 import {
-  login, logout, resetError, setRedirectAfterLogin
+  login, logout, resetError, updateUser
 } from './actions'
 
 export {
   login,
   logout,
   resetError,
-  setRedirectAfterLogin
+  updateUser
 }

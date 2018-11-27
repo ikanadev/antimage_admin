@@ -53,7 +53,8 @@ const adminReducer = createReducer(user ? JSON.parse(user) : defaultAdmin)({
     const { code, content } = action.payload
     return parseInt(code, 10) === 200 ? content.data.admin : defaultAdmin
   },
-  [types.LOGOUT]: () => defaultAdmin
+  [types.LOGOUT]: () => defaultAdmin,
+  [types.UPDATE_USER]: (state, action) => action.payload
 })
 const defaultCarrer = {
   id: 0,

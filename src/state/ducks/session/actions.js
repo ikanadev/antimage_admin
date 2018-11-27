@@ -19,6 +19,7 @@ export const resetError = () => ({
   type: types.RESET_ERROR
 })
 
-export const setRedirectAfterLogin = () => ({
-  type: types.SET_REDIRECT_AFTER_LOGIN
+export const updateUser = user => ({
+  type: types.UPDATE_USER,
+  payload: user
 })

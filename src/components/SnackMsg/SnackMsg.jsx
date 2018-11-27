@@ -28,7 +28,7 @@ function SnackMsg(props) {
 
   return (
     <SnackbarContent
-      className={classNames(classes[variant], className)}
+      className={classNames(classes[variant], className, classes.cont)}
       aria-describedby="client-snackbar"
       message={(
         <span id="client-snackbar" className={classes.message}>

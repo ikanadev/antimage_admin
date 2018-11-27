@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { personalOperations } from '../../state/ducks/personal'
+import { sessionOperations } from '../../state/ducks/session'
 
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 
@@ -19,6 +20,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   update: data => personalOperations.update(data),
+  updateUser: data => sessionOperations.updateUser(data),
   resetError: personalOperations.resetError
 }
 
