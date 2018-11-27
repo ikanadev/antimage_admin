@@ -1,9 +1,16 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-const General = () => (
+import CarrerData from '../../components/CarrerData/CarrerData'
+
+const General = props => (
   <div>
-    HOLA General
+    <CarrerData {...props} />
   </div>
 )
 
-export default General
+const mapStateToProps = state => ({
+  carrer: state.session.carrer
+})
+
+export default connect(mapStateToProps)(General)

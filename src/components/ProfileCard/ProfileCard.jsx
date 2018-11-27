@@ -29,10 +29,6 @@ class Profile extends Component {
     }
   }
 
-  componentDidMount = () => {
-    console.log(this.props)
-  }
-
   handleTextChange = name => (event) => {
     this.setState({
       [name]: event.target.value
