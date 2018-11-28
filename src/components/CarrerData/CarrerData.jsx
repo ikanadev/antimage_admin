@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import isomorphicFetch from 'isomorphic-fetch'
 import { withStyles } from '@material-ui/core/styles'
 import {
   Avatar,
@@ -11,13 +10,15 @@ import {
   Button
 } from '@material-ui'
 
+
 import SaveIcon from '@material-ui/icons/Save'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
 import AButton from '../AButton/AButton'
-// import SnackMsg from '../SnackMsg/SnackMsg'
+import SnackMsg from '../SnackMsg/SnackMsg'
 import styles from './CarrerDataStyles'
-import { sessionOperations } from '../../state/ducks/session'
+import { fetchFiles } from '../../utils'
+// import { sessionOperations } from '../../state/ducks/session'
 
 class Profile extends Component {
   constructor(props) {
@@ -57,26 +58,42 @@ class Profile extends Component {
   }
 
   handleUpdate = () => {
-    const { nombre, descripcion, file } = this.state
-    console.log(this.state)
-    console.log(isomorphicFetch)
+    const {
+      nombre, descripcion, file, urlLogo
+    } = this.state
+    const {
+      updateCarrer,
+      updateCarrerBegin,
+      updateCarrerSuccess,
+      setFatalError,
+      setFailedError,
+      setWarningError
+    } = this.props
     const data = {
       nombre,
       descripcion,
       urlLogo: file
     }
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: localStorage.getItem('token')
-    }
-    const options = {
-      method: 'POST',
-      headers,
-      body: data
-    }
-    isomorphicFetch('http://127.0.0.1/antimage_api/carrer/', options)
+    updateCarrerBegin()
+    fetchFiles('/carrer/', data)
       .then((res) => {
-        console.log(res)
+        if (res.code === 200) {
+          const newCarrer = res.content.data.carrer
+          if (newCarrer.urlLogo === 'null') {
+            newCarrer.urlLogo = urlLogo
+          }
+          updateCarrer(newCarrer)
+          updateCarrerSuccess()
+        }
+        if (res.code > 200 && res.code < 500) {
+          setWarningError(res.usrmsg)
+        }
+        if (res.code >= 500) {
+          setFailedError(res.usrmsg)
+        }
+      },
+      (err) => {
+        setFatalError(err.message)
       })
   }
   /*
@@ -86,11 +103,13 @@ class Profile extends Component {
   } */
 
   render() {
-    const { classes, dispatch } = this.props
+    const {
+      classes, errorType, errorMsg, resetError, loading
+    } = this.props
     const { nombre, descripcion, urlLogo } = this.state
-    /* let snack = null
+    let snack = null
     if (errorType) {
-      this.setDefault()
+      // this.setDefault()
       snack = (
         <SnackMsg
           variant={errorType}
@@ -98,7 +117,7 @@ class Profile extends Component {
           onClose={resetError}
         />
       )
-    } */
+    }
     return (
       <Paper className={classes.container} elevation={8}>
         <Typography variant="h5" component="h3">
@@ -106,7 +125,7 @@ class Profile extends Component {
         </Typography>
         <Divider />
         <br />
-        {/* snack */}
+        { snack }
         <br />
         <Grid container>
           <Grid item md={5}>
@@ -166,7 +185,7 @@ class Profile extends Component {
           text="Guardar"
           type="button"
           icon={<SaveIcon />}
-          // isLoading={loading}
+          isLoading={loading}
           onClick={this.handleUpdate}
         />
       </Paper>

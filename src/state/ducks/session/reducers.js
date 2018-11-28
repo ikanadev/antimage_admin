@@ -67,7 +67,8 @@ const carrerReducer = createReducer(carrer ? JSON.parse(carrer) : defaultCarrer)
     const { code, content } = action.payload
     return parseInt(code, 10) === 200 ? content.data.carrer : defaultCarrer
   },
-  [types.LOGOUT]: () => defaultCarrer
+  [types.LOGOUT]: () => defaultCarrer,
+  [types.UPDATE_CARRER]: (state, action) => action.payload
 })
 
 const loadingReducer = createReducer(false)({

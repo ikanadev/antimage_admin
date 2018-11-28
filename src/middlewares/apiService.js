@@ -1,8 +1,5 @@
-import { fetch } from '../utils'
-
+import { fetch, baseUrl } from '../utils'
 // const baseUrl = typeof document === 'undefined' ? 'http://localhost/antimage_api' : '/api'
-const baseUrl = 'http://127.0.0.1/antimage_api'
-
 function handleErrors(err, action, next) {
   next({
     type: `${action.type}_FATAL`,
