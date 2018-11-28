@@ -20,7 +20,6 @@ class Particles extends Component {
 
   componentDidMount = () => {
     this.setDimensions()
-    window.addEventListener('resize', this.setDimensions)
     this.drawCircles()
 
     const $mountains = this.mountains.current

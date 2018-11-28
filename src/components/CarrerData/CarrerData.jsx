@@ -30,10 +30,7 @@ class Profile extends Component {
       file: null
     }
     this.inputRef = React.createRef()
-  }
-
-  componentDidMount = () => {
-    console.log(this.props)
+    this.defaultState = this.state
   }
 
   handleTextChange = name => (event) => {
@@ -69,10 +66,18 @@ class Profile extends Component {
       setFailedError,
       setWarningError
     } = this.props
-    const data = {
-      nombre,
-      descripcion,
-      urlLogo: file
+    let data
+    if (file !== null) {
+      data = {
+        nombre,
+        descripcion,
+        urlLogo: file
+      }
+    } else {
+      data = {
+        nombre,
+        descripcion
+      }
     }
     updateCarrerBegin()
     fetchFiles('/carrer/', data)
@@ -90,17 +95,14 @@ class Profile extends Component {
         }
         if (res.code >= 500) {
           setFailedError(res.usrmsg)
+          this.setState(this.defaultState)
         }
       },
       (err) => {
         setFatalError(err.message)
+        this.setState(this.defaultState)
       })
   }
-  /*
-  setDefault = () => {
-    const { updateUser } = this.props
-    updateUser(this.defaultUser)
-  } */
 
   render() {
     const {
@@ -178,9 +180,6 @@ class Profile extends Component {
           </Grid>
 
         </Grid>
-
-        <br />
-        <br />
         <AButton
           text="Guardar"
           type="button"
