@@ -1,74 +1,70 @@
-import React from 'react'
+import React, { Fragment, Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
-  Card, CardContent, CardMedia, IconButton, Typography
+  Card, CardContent, CardMedia, Typography, Fab
 } from '@material-ui'
 
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import SkipNextIcon from '@material-ui/icons/SkipNext'
+import ClearIcon from '@material-ui/icons/Clear'
+import CreateIcon from '@material-ui/icons/Create'
 
-const styles = theme => ({
-  card: {
-    display: 'flex',
-    width: '80%',
-    justifyContent: 'space-between'
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  content: {
-    flex: '1 0 auto'
-  },
-  cover: {
-    width: 300
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit
-  },
-  playIcon: {
-    height: 38,
-    width: 38
+import styles from './CarouselItemStyles'
+
+class CarouselItem extends Component {
+  constructor() {
+    super()
+    this.state = {
+      isHover: false
+    }
   }
-})
 
-function CarouselItem(props) {
-  const { classes, theme } = props
+  handleHover = status => () => {
+    this.setState({
+      isHover: status
+    })
+  }
 
-  return (
-    <Card className={classes.card}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            Live From Space
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
-          </Typography>
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="Previous">
-            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-          </IconButton>
-          <IconButton aria-label="Play/pause">
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label="Next">
-            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-          </IconButton>
-        </div>
+  render() {
+    const { isHover } = this.state
+    const {
+      classes, titulo, descripcion, urlImg
+    } = this.props
+    const buttons = (
+      <div className={classes.absolute}>
+        <Fab size="small" color="primary" aria-label="Add" className={classes.margin}>
+          <CreateIcon />
+        </Fab>
+        <Fab size="small" color="secondary" aria-label="Add" className={classes.margin}>
+          <ClearIcon />
+        </Fab>
       </div>
-      <CardMedia
-        className={classes.cover}
-        image="https://d1u5p3l4wpay3k.cloudfront.net/dota2_gamepedia/8/8a/Rubick_icon.png"
-        title="Live from space album cover"
-      />
-    </Card>
-  )
+    )
+    return (
+      <Fragment>
+        <Card
+          onMouseEnter={this.handleHover(true)}
+          onMouseLeave={this.handleHover(false)}
+          className={classes.card}
+          raised
+        >
+          { isHover ? buttons : null }
+          <CardContent className={classes.content}>
+            <Typography component="h5" variant="h5">
+              { titulo }
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              { descripcion }
+            </Typography>
+          </CardContent>
+          <CardMedia
+            className={classes.cover}
+            image={urlImg}
+            title="Live from space album cover"
+          />
+        </Card>
+        <br />
+      </Fragment>
+    )
+  }
 }
 
-export default withStyles(styles, { withTheme: true })(CarouselItem)
+export default withStyles(styles)(CarouselItem)

@@ -10,21 +10,13 @@ import {
 import { withStyles } from '@material-ui/core/styles'
 
 import SnackMsg from '../SnackMsg/SnackMsg'
-import CarouselItem from '../CarouselItem/CarouselItem'
+import CarouselItemCont from './CarouselItemCont'
 import styles from './CarouselStyles'
 
 class Carousel extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      carousels: props.carouselData.carousels
-    }
-  }
-
   componentDidMount = () => {
-    console.log(this.props)
-    const { carousels } = this.state
-    const { carouselOperations } = this.props
+    const { carouselData, carouselOperations } = this.props
+    const { carousels } = carouselData
     if (carousels.length === 0) {
       carouselOperations.requestCarouselList()
     }
@@ -58,7 +50,7 @@ class Carousel extends Component {
         <Grid container direction="column" justify="center" alignItems="center">
           { snack }
           { loadingComp }
-          <CarouselItem />
+          <CarouselItemCont carousels={carouselData.carousels} />
         </Grid>
       </Paper>
     )
