@@ -10,12 +10,15 @@ function parseStatus(status, res) {
   })
 }
 
-function requestHeaders(url) {
-  const headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
+function requestHeaders(url, token, type) {
+  let headers = {}
+  if (type === 'json') {
+    headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
   }
-  if (url.indexOf('login') >= 0) {
+  if (!token) {
     return headers
   }
   return Object.assign(headers, {
@@ -23,11 +26,21 @@ function requestHeaders(url) {
   })
 }
 
-export default (url, method, body) => {
+export default (url, method, body, token, type) => {
+  let data
+  if (type === 'json') {
+    data = JSON.stringify(body)
+  }
+  if (type === 'file') {
+    data = new FormData()
+    Object.keys(body).forEach((key) => {
+      data.append(key, body[key])
+    })
+  }
   const options = {
     method,
-    headers: requestHeaders(url),
-    body: method !== 'GET' ? JSON.stringify(body) : null
+    headers: requestHeaders(url, token, type),
+    body: method !== 'GET' ? data : null
   }
 
   return isomorphicFetch(url, options)

@@ -15,7 +15,6 @@ import styles from './ProfileCardStyles'
 class Profile extends Component {
   constructor(props) {
     super(props)
-    console.log(this.props)
     this.state = {
       nombres: props.admin.nombres,
       apellidos: props.admin.apellidos,

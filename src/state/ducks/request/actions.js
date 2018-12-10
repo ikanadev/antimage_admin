@@ -7,9 +7,12 @@ export const reqBegin = reqType => ({
   }
 })
 
-export const reqSuccess = () => ({
-  type: types.REQUEST_SUCCESS
-})
+export const reqSuccess = (token) => {
+  localStorage.setItem('token', token)
+  return ({
+    type: types.REQUEST_SUCCESS
+  })
+}
 
 export const resetError = () => ({
   type: types.RESET_ERROR

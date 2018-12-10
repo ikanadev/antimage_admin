@@ -13,24 +13,23 @@ import AddIcon from '@material-ui/icons/Add'
 
 import { withStyles } from '@material-ui/core/styles'
 
-import SnackMsg from '../SnackMsg/SnackMsg'
 import CarouselItemCont from './CarouselItemCont'
 import SliderForm from '../SliderForm/SliderForm'
 import styles from './CarouselStyles'
 
 class Carousel extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    console.log(this.props)
     this.state = {
       openForm: false
     }
   }
 
   componentDidMount = () => {
-    const { carouselData, carouselOperations } = this.props
-    const { carousels } = carouselData
+    const { carousels, requestCarouselList } = this.props
     if (carousels.length === 0) {
-      carouselOperations.requestCarouselList()
+      requestCarouselList()
     }
   }
 
@@ -42,21 +41,11 @@ class Carousel extends Component {
 
   render() {
     const { openForm } = this.state
-    const { classes, carouselData, carouselOperations } = this.props
-    const { errorMsgRequest, errorTypeRequest, loadingRequest } = carouselData
-    let snack = null
+    const {
+      classes, carousels, errorMsg, loading
+    } = this.props
     let loadingComp = null
-    if (errorTypeRequest) {
-      // this.setDefault()
-      snack = (
-        <SnackMsg
-          variant={errorTypeRequest}
-          message={errorMsgRequest}
-          onClose={carouselOperations.resetRequestError}
-        />
-      )
-    }
-    if (loadingRequest) {
+    if (loading) {
       loadingComp = <CircularProgress size={70} />
     }
     return (
@@ -83,9 +72,9 @@ class Carousel extends Component {
         <Divider />
         <br />
         <Grid container direction="column" justify="center" alignItems="center">
-          { snack }
+          { errorMsg }
           { loadingComp }
-          <CarouselItemCont carousels={carouselData.carousels} />
+          <CarouselItemCont carousels={carousels} />
         </Grid>
       </Paper>
     )

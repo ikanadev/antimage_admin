@@ -53,7 +53,11 @@ const adminReducer = createReducer(user ? JSON.parse(user) : defaultAdmin)({
     return parseInt(code, 10) === 200 ? content.data.admin : defaultAdmin
   },
   [types.LOGOUT]: () => defaultAdmin,
-  [types.UPDATE_USER_SUCCESS]: (state, action) => action.payload.content.data
+  [types.UPDATE_USER_SUCCESS]: (state, action) => {
+    const newUser = action.payload.content.data
+    localStorage.setItem('user', JSON.stringify(newUser))
+    return newUser
+  }
 })
 const defaultCarrer = {
   id: 0,
@@ -67,7 +71,14 @@ const carrerReducer = createReducer(carrer ? JSON.parse(carrer) : defaultCarrer)
     return parseInt(code, 10) === 200 ? content.data.carrer : defaultCarrer
   },
   [types.LOGOUT]: () => defaultCarrer,
-  [types.UPDATE_CARRER]: (state, action) => action.payload
+  [types.UPDATE_CARRER_SUCCESS]: (state, action) => {
+    const { data } = action.payload.content
+    if (data.carrer.urlLogo === 'null') {
+      data.carrer.urlLogo = state.urlLogo
+    }
+    localStorage.setItem('carrer', JSON.stringify(data.carrer))
+    return data.carrer
+  }
 })
 
 export default combineReducers({

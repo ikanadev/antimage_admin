@@ -5,6 +5,7 @@ export const login = body => ({
   meta: {
     path: '/login',
     method: 'POST',
+    token: false,
     body
   }
 })
@@ -22,10 +23,12 @@ export const updateUser = body => ({
   }
 })
 
-export const updateCarrer = (carrer) => {
-  localStorage.setItem('carrer', JSON.stringify(carrer))
-  return {
-    type: types.UPDATE_CARRER,
-    payload: carrer
+export const updateCarrer = body => ({
+  type: types.UPDATE_CARRER,
+  meta: {
+    path: '/carrer/',
+    method: 'POST',
+    type: 'file',
+    body
   }
-}
+})

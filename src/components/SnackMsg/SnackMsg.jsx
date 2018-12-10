@@ -17,12 +17,12 @@ const variantIcon = {
   success: CheckCircleIcon,
   warning: WarningIcon,
   fatal: ErrorIcon,
-  fail: InfoIcon
+  failed: InfoIcon
 }
 
 function SnackMsg(props) {
   const {
-    classes, className, message, onClose, variant, ...other
+    classes, className, message, onClose, variant
   } = props
   const Icon = variantIcon[variant]
 
@@ -49,7 +49,6 @@ function SnackMsg(props) {
           <CloseIcon className={classes.icon} />
         </IconButton>
       ]}
-      {...other}
     />
   )
 }

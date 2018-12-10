@@ -1,16 +1,8 @@
 import {
-  requestCarouselList, resetRequestError, postCarousel,
-  postCarouselSuccess, resetPostError, setFailedError, setFatalError,
-  setWarningError
+  requestCarouselList, postCarousel
 } from './actions'
 
 export {
   requestCarouselList,
-  resetRequestError,
-  postCarousel,
-  postCarouselSuccess,
-  setWarningError,
-  setFatalError,
-  setFailedError,
-  resetPostError
+  postCarousel
 }

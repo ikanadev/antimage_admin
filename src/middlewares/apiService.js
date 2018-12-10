@@ -11,7 +11,7 @@ function handleResponse(res, action, next) {
   const code = parseInt(res.code, 10)
   switch (true) {
     case (code === 200):
-      next(requestOperations.reqSuccess())
+      next(requestOperations.reqSuccess(res.content.token))
       next({
         type: `${action.type}_SUCCESS`,
         payload: res,
@@ -44,8 +44,10 @@ const apiService = () => next => (action) => {
   }
 
   const url = `${baseUrl}${path}`
-
-  return fetch(url, method, body).then(
+  // Por defecto es necesario el token y por defecto es del tipo json
+  // para mandar archivos cambiar tipo a file
+  const { token = true, type = 'json' } = action.meta
+  return fetch(url, method, body, token, type).then(
     res => handleResponse(res, action, next),
     err => handleErrors(err, action, next),
   )

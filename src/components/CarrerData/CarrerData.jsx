@@ -15,9 +15,7 @@ import SaveIcon from '@material-ui/icons/Save'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
 import AButton from '../AButton/AButton'
-import SnackMsg from '../SnackMsg/SnackMsg'
 import styles from './CarrerDataStyles'
-import { fetchFiles } from '../../utils'
 // import { sessionOperations } from '../../state/ducks/session'
 
 class Profile extends Component {
@@ -56,15 +54,10 @@ class Profile extends Component {
 
   handleUpdate = () => {
     const {
-      nombre, descripcion, file, urlLogo
+      nombre, descripcion, file
     } = this.state
     const {
-      updateCarrer,
-      updateCarrerBegin,
-      updateCarrerSuccess,
-      setFatalError,
-      setFailedError,
-      setWarningError
+      updateCarrer
     } = this.props
     let data
     if (file !== null) {
@@ -79,47 +72,14 @@ class Profile extends Component {
         descripcion
       }
     }
-    updateCarrerBegin()
-    fetchFiles('/carrer/', data)
-      .then((res) => {
-        if (res.code === 200) {
-          const newCarrer = res.content.data.carrer
-          if (newCarrer.urlLogo === 'null') {
-            newCarrer.urlLogo = urlLogo
-          }
-          updateCarrer(newCarrer)
-          updateCarrerSuccess()
-        }
-        if (res.code > 200 && res.code < 500) {
-          setWarningError(res.usrmsg)
-        }
-        if (res.code >= 500) {
-          setFailedError(res.usrmsg)
-          this.setState(this.defaultState)
-        }
-      },
-      (err) => {
-        setFatalError(err.message)
-        this.setState(this.defaultState)
-      })
+    updateCarrer(data)
   }
 
   render() {
     const {
-      classes, errorType, errorMsg, resetError, loading
+      classes, errorMsg, loading
     } = this.props
     const { nombre, descripcion, urlLogo } = this.state
-    let snack = null
-    if (errorType) {
-      // this.setDefault()
-      snack = (
-        <SnackMsg
-          variant={errorType}
-          message={errorMsg}
-          onClose={resetError}
-        />
-      )
-    }
     return (
       <Paper className={classes.container} elevation={8}>
         <Typography variant="h5" component="h3">
@@ -127,7 +87,7 @@ class Profile extends Component {
         </Typography>
         <Divider />
         <br />
-        { snack }
+        { errorMsg }
         <br />
         <Grid container>
           <Grid item md={5}>
