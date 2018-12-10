@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { personalOperations } from '../../state/ducks/personal'
-import { sessionOperations } from '../../state/ducks/session'
+import { sessionOperations, sessionTypes } from '../../state/ducks/session'
 
+import { withError } from '../../utils/enhancers'
 import ProfileCard from '../../components/ProfileCard/ProfileCard'
 
 const Profile = props => (
@@ -12,16 +12,13 @@ const Profile = props => (
 )
 
 const mapStateToProps = state => ({
-  admin: state.session.admin,
-  errorType: state.personal.errorType,
-  errorMsg: state.personal.errorMsg,
-  loading: state.personal.loading
+  admin: state.session.admin
 })
 
 const mapDispatchToProps = {
-  update: data => personalOperations.update(data),
-  updateUser: data => sessionOperations.updateUser(data),
-  resetError: personalOperations.resetError
+  updateUser: data => sessionOperations.updateUser(data)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withError(Profile, sessionTypes.UPDATE_USER)
+)

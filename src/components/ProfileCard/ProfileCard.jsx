@@ -10,12 +10,12 @@ import {
 import SaveIcon from '@material-ui/icons/Save'
 
 import AButton from '../AButton/AButton'
-import SnackMsg from '../SnackMsg/SnackMsg'
 import styles from './ProfileCardStyles'
 
 class Profile extends Component {
   constructor(props) {
     super(props)
+    console.log(this.props)
     this.state = {
       nombres: props.admin.nombres,
       apellidos: props.admin.apellidos,
@@ -36,37 +36,21 @@ class Profile extends Component {
   }
 
   handleUpdate = () => {
-    const { update, updateUser } = this.props
-    console.log(update)
-    update(this.state)
-    updateUser(
-      (({ nombres, apellidos, correo }) => ({ nombres, apellidos, correo }))(this.state)
-    )
+    const { updateUser } = this.props
+    updateUser(this.state)
   }
 
   setDefault = () => {
-    const { updateUser } = this.props
-    updateUser(this.defaultUser)
+    this.setState(this.defaultUser)
   }
 
   render() {
     const {
-      classes, admin, errorMsg, errorType, loading, resetError
+      classes, admin, errorMsg, loading
     } = this.props
     const {
       nombres, apellidos, correo, password
     } = this.state
-    let snack = null
-    if (errorType) {
-      this.setDefault()
-      snack = (
-        <SnackMsg
-          variant={errorType}
-          message={errorMsg}
-          onClose={resetError}
-        />
-      )
-    }
     return (
       <Paper className={classes.container} elevation={8}>
         <Typography variant="h5" component="h3">
@@ -78,7 +62,7 @@ class Profile extends Component {
         </Typography>
         <Divider />
         <br />
-        { snack }
+        { errorMsg }
         <br />
         <TextField
           label="Nombres:"

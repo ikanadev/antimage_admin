@@ -10,7 +10,6 @@ import VisibilityIcon from '@material-ui/icons/VisibilityOutlined'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOffOutlined'
 import SendIcon from '@material-ui/icons/SendOutlined'
 
-import SnackMsg from '../SnackMsg/SnackMsg'
 import Engineer from '../Logos/Engineer'
 import Settings from '../Logos/Settings'
 import AButton from '../AButton/AButton'
@@ -20,6 +19,7 @@ import styles from './FormStyles'
 class Form extends Component {
   constructor(props) {
     super(props)
+    console.log(this.props)
     this.state = {
       correo: '',
       password: '',
@@ -74,23 +74,13 @@ class Form extends Component {
 
   render() {
     const {
-      classes, isLoading, errorMsg, errorType, resetError
+      classes, loading, errorMsg
     } = this.props
     const {
       correo, password, correoFocus, passwordFocus, showPassword, cardAnimation
     } = this.state
     const correoColor = correoFocus ? 'primary' : 'disabled'
     const passwordColor = passwordFocus ? 'primary' : 'disabled'
-    let snack = null
-    if (errorType) {
-      snack = (
-        <SnackMsg
-          variant={errorType}
-          message={errorMsg}
-          onClose={resetError}
-        />
-      )
-    }
 
     return (
       <Grid container className={classes.container} justify="center" alignItems="center">
@@ -107,7 +97,7 @@ class Form extends Component {
             </Typography>
             <br />
             <br />
-            { snack }
+            { errorMsg }
             <br />
             <form>
               <Input
@@ -162,7 +152,7 @@ class Form extends Component {
               />
               <AButton
                 text="Ingresar"
-                isLoading={isLoading}
+                isLoading={loading}
                 onClick={this.handleSubmit}
                 type="submit"
                 icon={<SendIcon />}

@@ -6,7 +6,10 @@ import { createReducer } from '../../../utils'
     errorTypeRequest: null,
     errorMsgRequest: '',
     loadingRequest: false,
-    carousels: []
+    carousels: [],
+    errorTypePost: null,
+    errorMsgPost: '',
+    loadingPost: false,
 }
 */
 
@@ -37,12 +40,43 @@ const errorMsgRequestReducer = createReducer('')({
 })
 
 const carouselReducer = createReducer([])({
-  [types.REQUEST_CAROUSEL_LIST_COMPLETED]: (state, action) => action.payload.content.data
+  [types.REQUEST_CAROUSEL_LIST_COMPLETED]: (state, action) => action.payload.content.data,
+  [types.POST_CAROUSEL_COMPLETED]: (state, action) => [...state, action.payload]
+})
+
+const errorTypePost = createReducer(null)({
+  [types.POST_CAROUSEL_FAILED]: () => 'fail',
+  [types.POST_CAROUSEL_WARNING]: () => 'warning',
+  [types.POST_CAROUSEL_FATAL]: () => 'fatal',
+  [types.POST_CAROUSEL_COMPLETED]: () => null,
+  [types.POST_CAROUSEL]: () => null,
+  [types.RESET_POST_ERROR]: () => null
+})
+
+const errorMsgPost = createReducer('')({
+  [types.POST_CAROUSEL_FAILED]: (state, action) => action.payload,
+  [types.POST_CAROUSEL_WARNING]: (state, action) => action.payload,
+  [types.POST_CAROUSEL_FATAL]: (state, action) => action.payload,
+  [types.POST_CAROUSEL_COMPLETED]: () => '',
+  [types.POST_CAROUSEL]: () => '',
+  [types.RESET_POST_ERROR]: () => ''
+})
+
+const loadingPost = createReducer(false)({
+/*   [types.POST_CAROUSEL_FAILED]: () => false,
+  [types.POST_CAROUSEL_WARNING]: () => false,
+  [types.POST_CAROUSEL_FATAL]: () => false,
+  [types.POST_CAROUSEL_COMPLETED]: () => false, */
+  [types.POST_CAROUSEL]: () => true
+//  [types.RESET_POST_ERROR]: () => false
 })
 
 export default combineReducers({
   loadingRequest: loadingRequestReducer,
   errorTypeRequest: errorTypeRequestReducer,
   errorMsgRequest: errorMsgRequestReducer,
-  carousels: carouselReducer
+  carousels: carouselReducer,
+  errorTypePost,
+  errorMsgPost,
+  loadingPost
 })

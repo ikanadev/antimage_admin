@@ -1,11 +1,10 @@
 import {
-  login, logout, resetError, updateUser, updateCarrer
+  login, logout, updateUser, updateCarrer
 } from './actions'
 
 export {
   login,
   logout,
-  resetError,
   updateUser,
   updateCarrer
 }

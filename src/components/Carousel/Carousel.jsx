@@ -4,16 +4,28 @@ import {
   Typography,
   Divider,
   CircularProgress,
-  Grid
+  Grid,
+  Fab,
+  Tooltip
 } from '@material-ui'
+
+import AddIcon from '@material-ui/icons/Add'
 
 import { withStyles } from '@material-ui/core/styles'
 
 import SnackMsg from '../SnackMsg/SnackMsg'
 import CarouselItemCont from './CarouselItemCont'
+import SliderForm from '../SliderForm/SliderForm'
 import styles from './CarouselStyles'
 
 class Carousel extends Component {
+  constructor() {
+    super()
+    this.state = {
+      openForm: false
+    }
+  }
+
   componentDidMount = () => {
     const { carouselData, carouselOperations } = this.props
     const { carousels } = carouselData
@@ -22,7 +34,14 @@ class Carousel extends Component {
     }
   }
 
+  handleForm = open => () => {
+    this.setState({
+      openForm: open
+    })
+  }
+
   render() {
+    const { openForm } = this.state
     const { classes, carouselData, carouselOperations } = this.props
     const { errorMsgRequest, errorTypeRequest, loadingRequest } = carouselData
     let snack = null
@@ -42,9 +61,25 @@ class Carousel extends Component {
     }
     return (
       <Paper className={classes.container} elevation={8}>
-        <Typography variant="h5" component="h3">
-          Slide Im&aacute;genes
-        </Typography>
+        <SliderForm
+          open={openForm}
+          close={this.handleForm(false)}
+        />
+        <div className={classes.titleContainer}>
+          <Typography variant="h5" component="h3">
+            Slide Im&aacute;genes
+          </Typography>
+          <Tooltip title="Crear Slide" placement="top">
+            <Fab
+              size="small"
+              color="primary"
+              className={classes.addButton}
+              onClick={this.handleForm(true)}
+            >
+              <AddIcon />
+            </Fab>
+          </Tooltip>
+        </div>
         <Divider />
         <br />
         <Grid container direction="column" justify="center" alignItems="center">

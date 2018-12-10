@@ -1,45 +1,42 @@
 import { fetch, baseUrl } from '../utils'
+import { requestOperations } from '../state/ducks/request'
 // const baseUrl = typeof document === 'undefined' ? 'http://localhost/antimage_api' : '/api'
 function handleErrors(err, action, next) {
-  next({
-    type: `${action.type}_FATAL`,
-    payload: err.message,
-    meta: action.meta
-  })
+  next(requestOperations.reqFatal(err.message))
 
   return Promise.reject(err)
 }
 
 function handleResponse(res, action, next) {
   const code = parseInt(res.code, 10)
-  let suffix = ''
   switch (true) {
     case (code === 200):
-      suffix = 'COMPLETED'
+      next(requestOperations.reqSuccess())
+      next({
+        type: `${action.type}_SUCCESS`,
+        payload: res,
+        meta: action.meta
+      })
       break
     case (code >= 300 && code < 500):
-      suffix = 'WARNING'
+      next(requestOperations.reqWarning(res.usrmsg))
       break
     case (code >= 500):
-      suffix = 'FAILED'
+      next(requestOperations.reqFailed(res.usrmsg))
       break
     default:
-      suffix = 'FATAL'
+      next(action)
       break
   }
-  next({
-    type: `${action.type}_${suffix}`,
-    payload: res,
-    meta: action.meta
-  })
   return res
 }
 
 const apiService = () => next => (action) => {
   const result = next(action)
-  if (!action.meta || !action.meta.async) {
+  if (!action.meta) {
     return result
   }
+  next(requestOperations.reqBegin(action.type))
   const { path, method = 'GET', body } = action.meta
 
   if (!path) {
@@ -50,7 +47,7 @@ const apiService = () => next => (action) => {
 
   return fetch(url, method, body).then(
     res => handleResponse(res, action, next),
-    err => handleErrors(err, action, next)
+    err => handleErrors(err, action, next),
   )
 }
 

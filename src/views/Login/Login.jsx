@@ -4,36 +4,27 @@ import { Redirect } from 'react-router-dom'
 
 import Particles from '../../components/Particles/Particles'
 import Form from '../../components/Form/Form'
-import { sessionOperations } from '../../state/ducks/session'
+import { sessionOperations, sessionTypes } from '../../state/ducks/session'
+import { withError } from '../../utils/enhancers'
 
-function Login({
-  login, isAuthenticated, loading, errorType, errorMsg, resetError
-}) {
+function Login({ isAuthenticated, ...rest }) {
   if (isAuthenticated) {
     return <Redirect to="/" />
   }
   return (
     <div>
       <Particles maxParticles={120} drawInterval={100} />
-      <Form
-        login={login}
-        isLoading={loading}
-        errorType={errorType}
-        errorMsg={errorMsg}
-        resetError={resetError}
-      />
+      <Form {...rest} />
     </div>
   )
 }
 const mapStateToProps = state => ({
-  isAuthenticated: state.session.isAuthenticated,
-  loading: state.session.loading,
-  errorType: state.session.errorType,
-  errorMsg: state.session.errorMsg
+  isAuthenticated: state.session.isAuthenticated
 })
 
 const mapDispatchToProps = {
-  login: body => (sessionOperations.login(body)),
-  resetError: sessionOperations.resetError
+  login: body => (sessionOperations.login(body))
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withError(Login, sessionTypes.LOGIN)
+)

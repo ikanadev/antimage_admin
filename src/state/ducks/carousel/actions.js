@@ -14,3 +14,31 @@ export const requestCarouselList = body => ({
 export const resetRequestError = () => ({
   type: types.RESET_REQUEST_ERROR
 })
+
+export const postCarouselSuccess = item => ({
+  type: types.POST_CAROUSEL_COMPLETED,
+  payload: item
+})
+
+export const postCarousel = () => ({
+  type: types.POST_CAROUSEL
+})
+
+export const setWarningError = warning => ({
+  type: types.POST_CAROUSEL_WARNING,
+  payload: warning
+})
+
+export const setFailedError = error => ({
+  type: types.POST_CAROUSEL_FAILED,
+  payload: error
+})
+
+export const setFatalError = error => ({
+  type: types.POST_CAROUSEL_FATAL,
+  payload: error
+})
+
+export const resetPostError = () => ({
+  type: types.RESET_POST_ERROR
+})
