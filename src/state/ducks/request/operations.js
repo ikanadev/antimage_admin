@@ -1,5 +1,5 @@
 import {
-  reqBegin, reqFailed, reqSuccess, reqFatal, reqWarning, resetError
+  reqBegin, reqFailed, reqSuccess, reqFatal, reqWarning, resetError, createError
 } from './actions'
 
 export {
@@ -8,5 +8,6 @@ export {
   reqSuccess,
   reqFatal,
   reqWarning,
-  resetError
+  resetError,
+  createError
 }

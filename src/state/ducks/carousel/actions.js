@@ -8,6 +8,31 @@ export const requestCarouselList = () => ({
   }
 })
 
-export const postCarousel = () => ({
-  type: types.POST_CAROUSEL
+export const postCarousel = body => ({
+  type: types.POST_CAROUSEL,
+  meta: {
+    path: '/carousel/',
+    method: 'POST',
+    type: 'file',
+    body
+  }
+})
+
+export const updateCarousel = body => ({
+  type: types.UPDATE_CAROUSEL,
+  meta: {
+    path: '/carousel/update',
+    method: 'POST',
+    type: 'file',
+    body
+  }
+})
+
+export const deleteCarousel = body => ({
+  type: types.DELETE_CAROUSEL,
+  meta: {
+    path: '/carousel/',
+    method: 'DELETE',
+    body
+  }
 })

@@ -1,8 +1,10 @@
 import {
-  requestCarouselList, postCarousel
+  requestCarouselList, postCarousel, updateCarousel, deleteCarousel
 } from './actions'
 
 export {
   requestCarouselList,
-  postCarousel
+  postCarousel,
+  updateCarousel,
+  deleteCarousel
 }

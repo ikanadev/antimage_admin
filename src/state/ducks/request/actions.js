@@ -38,3 +38,12 @@ export const reqFatal = fatalMsg => ({
     msg: fatalMsg
   }
 })
+
+export const createError = errorData => ({
+  type: types.CREATE_ERROR,
+  payload: {
+    type: errorData.type,
+    msg: errorData.msg,
+    req: errorData.req
+  }
+})

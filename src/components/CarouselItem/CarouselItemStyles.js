@@ -1,3 +1,5 @@
+import red from '@material-ui/core/colors/red'
+
 export default theme => ({
   card: {
     display: 'flex',
@@ -24,5 +26,16 @@ export default theme => ({
     position: 'absolute',
     top: 0,
     right: 0
+  },
+  wrapper: {
+    position: 'relative',
+    display: 'inline'
+  },
+  fabProgress: {
+    color: red[500],
+    position: 'absolute',
+    top: -13,
+    left: 4,
+    zIndex: 1
   }
 })

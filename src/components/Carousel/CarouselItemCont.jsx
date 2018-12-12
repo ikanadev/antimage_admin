@@ -1,32 +1,46 @@
 import React, { Component, Fragment } from 'react'
-import { withStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+
+import { carouselOperations, carouselTypes } from '../../state/ducks/carousel'
+import { withError } from '../../utils/enhancers'
 
 import CarouselItem from '../CarouselItem/CarouselItem'
 
-import styles from './CarouselItemContStyles'
-
 class CarouselItemCont extends Component {
-  componentDidMount = () => {
-    // console.log(this.props)
+  deleteCarousel = id => () => {
+    const { deleteCarousel } = this.props
+    deleteCarousel({ id })
   }
 
   render() {
-    const { carousels } = this.props
+    const {
+      carousels, dispatch, loading, errorMsg
+    } = this.props
     let items = null
     if (carousels.length > 0) {
       items = carousels.map(carousel => (
         <CarouselItem
           key={carousel.id}
+          dispatch={dispatch}
+          loading={loading}
+          deleteCarousel={this.deleteCarousel}
           {...carousel}
         />
       ))
     }
     return (
       <Fragment>
+        { errorMsg }
         { items }
       </Fragment>
     )
   }
 }
 
-export default withStyles(styles)(CarouselItemCont)
+const mapDispatchToProps = {
+  deleteCarousel: carouselOperations.deleteCarousel
+}
+
+export default connect(null, mapDispatchToProps)(
+  withError(CarouselItemCont, carouselTypes.DELETE_CAROUSEL)
+)

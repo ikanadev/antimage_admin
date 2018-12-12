@@ -2,6 +2,7 @@ import { fetch, baseUrl } from '../utils'
 import { requestOperations } from '../state/ducks/request'
 // const baseUrl = typeof document === 'undefined' ? 'http://localhost/antimage_api' : '/api'
 function handleErrors(err, action, next) {
+  console.log(err)
   next(requestOperations.reqFatal(err.message))
 
   return Promise.reject(err)

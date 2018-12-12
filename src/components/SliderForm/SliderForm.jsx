@@ -14,24 +14,26 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import ClearIcon from '@material-ui/icons/Clear'
 
 import AButton from '../AButton/AButton'
-import { fetchFiles } from '../../utils'
 
 import styles from './SlideFormStyles'
 
 class SliderForm extends Component {
-  constructor() {
-    super()
+  static defaultProps = {
+    titulo: '',
+    descripcion: '',
+    urlImg: null
+  }
+
+  constructor(props) {
+    super(props)
+    const { titulo, descripcion, urlImg } = this.props
     this.state = {
-      titulo: '',
-      descripcion: '',
-      urlImg: null,
+      titulo,
+      descripcion,
+      urlImg,
       file: null
     }
     this.inputRef = React.createRef()
-  }
-
-  componentDidMount = () => {
-    console.log('SLIDE FORM PROPS: ', this.props)
   }
 
   handleTextChange = name => (event) => {
@@ -56,31 +58,45 @@ class SliderForm extends Component {
   }
 
   handleUpload = () => {
+    const { showWarning, onSubmit } = this.props
     const {
-      titulo, descripcion, file
+      titulo, descripcion, urlImg, file
     } = this.state
-    const data = {
-      titulo,
-      descripcion,
-      urlImg: file
+    if (titulo === '' || descripcion === '' || urlImg == null) {
+      showWarning()
     }
-    fetchFiles('/carousel/', data)
-      .then((res) => {
-        console.log(res)
-      })
+    let data
+    if (file == null) {
+      data = {
+        titulo,
+        descripcion
+      }
+    } else {
+      data = {
+        titulo,
+        descripcion,
+        urlImg: file
+      }
+    }
+    onSubmit(data)
   }
 
   render() {
     const { titulo, descripcion, urlImg } = this.state
-    const { open, close, classes } = this.props
+    const {
+      open, close, classes, errorMsg, loading, title
+    } = this.props
     return (
       <Dialog
         open={open}
         onClose={close}
         aria-labelledby="form-dialog-title"
+        scroll="body"
       >
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">{ title }</DialogTitle>
         <DialogContent>
+          { errorMsg }
+          <br />
           <DialogContentText>
             Las Im&aacute;genes se mostrar&aacute;n en el slider principal de la p&aacute;gina.
           </DialogContentText>
@@ -101,6 +117,7 @@ class SliderForm extends Component {
             value={descripcion}
             onChange={this.handleTextChange('descripcion')}
             margin="dense"
+            multiline
           />
           {
             urlImg === null
@@ -129,14 +146,13 @@ class SliderForm extends Component {
             text="Cerrar"
             type="button"
             icon={<ClearIcon />}
-            // isLoading={loading}
             onClick={close}
           />
           <AButton
             text="Guardar"
             type="button"
             icon={<CloudUploadIcon />}
-            // isLoading={loading}
+            isLoading={loading}
             onClick={this.handleUpload}
           />
         </DialogActions>

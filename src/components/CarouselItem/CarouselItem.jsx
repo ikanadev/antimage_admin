@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
-  Card, CardContent, CardMedia, Typography, Fab
+  Card, CardContent, CardMedia, Typography, Fab, CircularProgress
 } from '@material-ui'
 
 import ClearIcon from '@material-ui/icons/Clear'
@@ -9,11 +9,14 @@ import CreateIcon from '@material-ui/icons/Create'
 
 import styles from './CarouselItemStyles'
 
+import SlideFormUpdate from '../SliderForm/SlideFormUpdate'
+
 class CarouselItem extends Component {
   constructor() {
     super()
     this.state = {
-      isHover: false
+      isHover: false,
+      openForm: false
     }
   }
 
@@ -23,19 +26,40 @@ class CarouselItem extends Component {
     })
   }
 
+  handleForm = open => () => {
+    this.setState({
+      openForm: open
+    })
+  }
+
   render() {
-    const { isHover } = this.state
+    const { isHover, openForm } = this.state
     const {
-      classes, titulo, descripcion, urlImg
+      classes, titulo, descripcion, urlImg, dispatch, id, loading, deleteCarousel
     } = this.props
     const buttons = (
       <div className={classes.absolute}>
-        <Fab size="small" color="primary" aria-label="Add" className={classes.margin}>
+        <Fab
+          size="small"
+          color="primary"
+          aria-label="Add"
+          onClick={this.handleForm(true)}
+          className={classes.margin}
+        >
           <CreateIcon />
         </Fab>
-        <Fab size="small" color="secondary" aria-label="Add" className={classes.margin}>
-          <ClearIcon />
-        </Fab>
+        <div className={classes.wrapper}>
+          <Fab
+            size="small"
+            color="secondary"
+            onClick={deleteCarousel(id)}
+            disabled={loading}
+            className={classes.margin}
+          >
+            <ClearIcon />
+          </Fab>
+          {loading && <CircularProgress size={47} className={classes.fabProgress} />}
+        </div>
       </div>
     )
     return (
@@ -47,6 +71,15 @@ class CarouselItem extends Component {
           raised
         >
           { isHover ? buttons : null }
+          <SlideFormUpdate
+            id={id}
+            titulo={titulo}
+            descripcion={descripcion}
+            urlImg={urlImg}
+            dispatch={dispatch}
+            close={this.handleForm(false)}
+            open={openForm}
+          />
           <CardContent className={classes.content}>
             <Typography component="h5" variant="h5">
               { titulo }
@@ -58,7 +91,6 @@ class CarouselItem extends Component {
           <CardMedia
             className={classes.cover}
             image={urlImg}
-            title="Live from space album cover"
           />
         </Card>
         <br />

@@ -32,22 +32,22 @@ import styles from './DrawerStyles'
 
 const menuItems = [
   {
-    text: 'Datos Generales', icon: <AssignmentIcon />, url: 'general', component: () => <General />
+    text: 'Datos Generales', icon: <AssignmentIcon />, url: 'general', component: dispatch => () => <General dispatch={dispatch} />
   },
   {
-    text: 'Información Adicional', icon: <DescriptionIcon />, url: 'informacion-adicional', component: () => <Info />
+    text: 'Información Adicional', icon: <DescriptionIcon />, url: 'informacion-adicional', component: dispatch => () => <Info dispatch={dispatch} />
   },
   {
-    text: 'Administrar Editores', icon: <ContactsIcon />, url: 'administrar-editores', component: () => <Editors />
+    text: 'Administrar Editores', icon: <ContactsIcon />, url: 'administrar-editores', component: dispatch => () => <Editors dispatch={dispatch} />
   },
   {
-    text: 'Administrar Menús', icon: <ListIcon />, url: 'administrar-menus', component: () => <Menus />
+    text: 'Administrar Menús', icon: <ListIcon />, url: 'administrar-menus', component: dispatch => () => <Menus dispatch={dispatch} />
   },
   {
-    text: 'Páginas', icon: <WebIcon />, url: 'paginas', component: () => <Pages />
+    text: 'Páginas', icon: <WebIcon />, url: 'paginas', component: dispatch => () => <Pages dispatch={dispatch} />
   },
   {
-    text: 'Publicaciones', icon: <CreateIcon />, url: 'publicaciones', component: () => <Publications />
+    text: 'Publicaciones', icon: <CreateIcon />, url: 'publicaciones', component: dispatch => () => <Publications dispatch={dispatch} />
   }
 ]
 
@@ -75,7 +75,7 @@ class MiniDrawer extends React.Component {
 
   render() {
     const {
-      classes, theme, logout, carrer, admin, match, location
+      classes, theme, logout, carrer, admin, match, location, dispatch
     } = this.props
     const { open, anchorEl } = this.state
     const openAE = Boolean(anchorEl)
@@ -174,10 +174,10 @@ class MiniDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path={`${match.path}/perfil`} component={Profile} />
+          <Route path={`${match.path}/perfil`} component={() => <Profile dispatch={dispatch} />} />
           {
             menuItems.map(menuItem => (
-              <Route key={menuItem.url} path={`${match.path}/${menuItem.url}`} component={menuItem.component} />
+              <Route key={menuItem.url} path={`${match.path}/${menuItem.url}`} component={menuItem.component(dispatch)} />
             ))
           }
         </main>

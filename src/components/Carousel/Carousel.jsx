@@ -14,13 +14,12 @@ import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from '@material-ui/core/styles'
 
 import CarouselItemCont from './CarouselItemCont'
-import SliderForm from '../SliderForm/SliderForm'
+import SliderFormNew from '../SliderForm/SlideFormNew'
 import styles from './CarouselStyles'
 
 class Carousel extends Component {
   constructor(props) {
     super(props)
-    console.log(this.props)
     this.state = {
       openForm: false
     }
@@ -42,7 +41,7 @@ class Carousel extends Component {
   render() {
     const { openForm } = this.state
     const {
-      classes, carousels, errorMsg, loading
+      classes, carousels, errorMsg, loading, dispatch
     } = this.props
     let loadingComp = null
     if (loading) {
@@ -50,9 +49,10 @@ class Carousel extends Component {
     }
     return (
       <Paper className={classes.container} elevation={8}>
-        <SliderForm
+        <SliderFormNew
           open={openForm}
           close={this.handleForm(false)}
+          dispatch={dispatch}
         />
         <div className={classes.titleContainer}>
           <Typography variant="h5" component="h3">
@@ -74,7 +74,7 @@ class Carousel extends Component {
         <Grid container direction="column" justify="center" alignItems="center">
           { errorMsg }
           { loadingComp }
-          <CarouselItemCont carousels={carousels} />
+          <CarouselItemCont carousels={carousels} dispatch={dispatch} />
         </Grid>
       </Paper>
     )

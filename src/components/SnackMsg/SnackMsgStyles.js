@@ -8,7 +8,7 @@ const styles = theme => ({
   fatal: {
     backgroundColor: theme.palette.error.dark
   },
-  fail: {
+  failed: {
     backgroundColor: theme.palette.error.dark
   },
   warning: {
