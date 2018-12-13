@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-const Info = () => (
-  <div>
-    HOLA Info
-  </div>
+import Main from '../../components/Contact/Main'
+
+const Info = props => (
+  <Fragment>
+    <Main {...props} />
+  </Fragment>
 )
 
 export default Info
