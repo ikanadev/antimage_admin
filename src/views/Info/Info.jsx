@@ -1,10 +1,14 @@
 import React, { Fragment } from 'react'
 
-import Main from '../../components/Contact/Main'
+import Contact from '../../components/Contact/Main'
+import Link from '../../components/Link/Main'
 
 const Info = props => (
   <Fragment>
-    <Main {...props} />
+    <Contact {...props} />
+    <br />
+    <br />
+    <Link {...props} />
   </Fragment>
 )
 
