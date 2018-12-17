@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
-import { withStyles } from '@material-ui/core/styles'
 import {
-  Paper,
-  Typography,
-  Divider,
   TextField
 } from '@material-ui'
 
 import SaveIcon from '@material-ui/icons/Save'
 
 import AButton from '../AButton/AButton'
-import styles from './ProfileCardStyles'
+import PaperCont from '../PaperCont/PaperCont'
 
 class Profile extends Component {
   constructor(props) {
@@ -45,22 +41,16 @@ class Profile extends Component {
 
   render() {
     const {
-      classes, admin, errorMsg, loading
+      admin, errorMsg, loading
     } = this.props
     const {
       nombres, apellidos, correo, password
     } = this.state
     return (
-      <Paper className={classes.container} elevation={8}>
-        <Typography variant="h5" component="h3">
-          Datos Personales
-        </Typography>
-        <Typography variant="subtitle2">
-          Rol:&nbsp;
-          {admin.tipo}
-        </Typography>
-        <Divider />
-        <br />
+      <PaperCont
+        title="Datos Personales"
+        subtitle={`Rol: ${admin.tipo}`}
+      >
         { errorMsg }
         <br />
         <TextField
@@ -114,9 +104,9 @@ class Profile extends Component {
           isLoading={loading}
           onClick={this.handleUpdate}
         />
-      </Paper>
+      </PaperCont>
     )
   }
 }
 
-export default withStyles(styles)(Profile)
+export default Profile

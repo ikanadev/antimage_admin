@@ -1,4 +1,4 @@
-export default () => ({
+export default ({
   container: {
     padding: 35
   },

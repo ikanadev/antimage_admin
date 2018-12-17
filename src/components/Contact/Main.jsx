@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { withStyles } from '@material-ui/core/styles'
 
 import {
-  Paper, Typography, Fab, Tooltip, Divider, Grid, CircularProgress, Collapse
+  Grid, CircularProgress, Collapse
 } from '@material-ui'
 
-import AddIcon from '@material-ui/icons/Add'
 import PhoneIcon from '@material-ui/icons/Phone'
 import SmartphoneIcon from '@material-ui/icons/Smartphone'
 import EmailIcon from '@material-ui/icons/Email'
@@ -14,10 +12,9 @@ import EmailIcon from '@material-ui/icons/Email'
 import { withError } from '../../utils/enhancers'
 import { contactTypes, contactOperations } from '../../state/ducks/contact'
 
+import PaperCont from '../PaperCont/PaperCont'
 import ListCont from './ListCont'
 import Form from './Form'
-
-import styles from './MainStyles'
 
 const icons = {
   telefono: <PhoneIcon />,
@@ -49,36 +46,18 @@ class Main extends Component {
   render() {
     const { isOpenForm } = this.state
     const {
-      classes, loading, errorMsg, contacts, dispatch
+      loading, errorMsg, contacts, dispatch
     } = this.props
     let loadingComp = null
     if (loading) {
       loadingComp = <CircularProgress size={70} />
     }
     return (
-      <Paper className={classes.container} elevation={8}>
-        {/* <SliderFormNew
-          open={openForm}
-          close={this.handleForm(false)}
-          dispatch={dispatch}
-        /> */}
-        <div className={classes.titleContainer}>
-          <Typography variant="h5" component="h3">
-            Informaci&oacute;n de Contacto
-          </Typography>
-          <Tooltip title="Crear Slide" placement="top">
-            <Fab
-              size="small"
-              color="primary"
-              className={classes.addButton}
-              onClick={this.handleForm(true)}
-            >
-              <AddIcon />
-            </Fab>
-          </Tooltip>
-        </div>
-        <Divider />
-        <br />
+      <PaperCont
+        title="Información de Contacto"
+        onClick={this.handleForm(true)}
+        tooltip="Crear Nuevo"
+      >
         <Grid container direction="column" justify="center" alignItems="center">
           <Collapse
             in={isOpenForm}
@@ -95,7 +74,7 @@ class Main extends Component {
           { loadingComp }
           <ListCont icons={icons} contacts={contacts} dispatch={dispatch} />
         </Grid>
-      </Paper>
+      </PaperCont>
     )
   }
 }
@@ -110,7 +89,7 @@ const mapDispatchToProps = {
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   withError(
-    withStyles(styles)(Main),
+    Main,
     contactTypes.REQUEST_CONTACT_LIST
   )
 )

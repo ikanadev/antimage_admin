@@ -1,7 +1,4 @@
 export default () => ({
-  container: {
-    padding: 35
-  },
   avatar: {
     margin: 20,
     maxWidth: '100%',

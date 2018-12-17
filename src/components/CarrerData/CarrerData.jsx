@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import {
   Avatar,
-  Paper,
-  Typography,
-  Divider,
   TextField,
   Grid,
   Button
@@ -14,6 +11,7 @@ import {
 import SaveIcon from '@material-ui/icons/Save'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 
+import PaperCont from '../PaperCont/PaperCont'
 import AButton from '../AButton/AButton'
 import styles from './CarrerDataStyles'
 // import { sessionOperations } from '../../state/ducks/session'
@@ -81,12 +79,9 @@ class Profile extends Component {
     } = this.props
     const { nombre, descripcion, urlLogo } = this.state
     return (
-      <Paper className={classes.container} elevation={8}>
-        <Typography variant="h5" component="h3">
-          Sobre la Carrera
-        </Typography>
-        <Divider />
-        <br />
+      <PaperCont
+        title="Sobre la Carrera"
+      >
         { errorMsg }
         <br />
         <Grid container>
@@ -147,7 +142,7 @@ class Profile extends Component {
           isLoading={loading}
           onClick={this.handleUpdate}
         />
-      </Paper>
+      </PaperCont>
     )
   }
 }
