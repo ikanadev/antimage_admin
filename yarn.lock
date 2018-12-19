@@ -762,6 +762,16 @@
   dependencies:
     "@babel/runtime" "7.1.2"
 
+"@mdi/js@^3.2.89":
+  version "3.2.89"
+  resolved "https://registry.yarnpkg.com/@mdi/js/-/js-3.2.89.tgz#71310ff0890cd161ef56407120dda36dbcf1a427"
+  integrity sha512-IpW8oz3HL7rJYCQZUe6Pq4keuzluIQzFSM8yM/dzhPrwF2gM1ZyVo+MSXkP6U5JtGW9r2pFSWyQzeW4Y+R5zIQ==
+
+"@mdi/react@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@mdi/react/-/react-1.1.0.tgz#22b014e40152adbe0d7d36631fc9979854603c7a"
+  integrity sha512-c0+avMYEZ6i7Pg1ULLFs+p7k8bDPiie9rrgGYs8VWQhw2tUUYz7r0lIPVzD3bzMghWfyhfkArj88K5Of0WTMNw==
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"

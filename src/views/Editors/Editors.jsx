@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
-const Editors = () => (
-  <div>
-    HOLA EDITORS
-  </div>
+import Editor from '../../components/Contact/Main'
+
+const Editors = props => (
+  <Fragment>
+    ACA VAN LOS EDITORES
+    {/* <Editor {...props} /> */}
+  </Fragment>
 )
 
 export default Editors
