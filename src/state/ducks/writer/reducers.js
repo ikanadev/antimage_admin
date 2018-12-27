@@ -18,7 +18,7 @@ const list = createReducer([])({
       : writer
   )),
   [types.DELETE_WRITER_SUCCESS]: (state, action) => state.filter(writer => (
-    parseInt(writer.id, 10) !== parseInt(action.payload.content.data, 10)
+    parseInt(writer.id, 10) !== parseInt(action.payload.content.data.id, 10)
   ))
 })
 

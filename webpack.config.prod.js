@@ -8,7 +8,7 @@ const webpack = require('webpack')
 module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
-    publicPath: '/meetmath',
+    publicPath: '/',
     filename: 'bundle.js'
   },
   module: {
@@ -110,9 +110,7 @@ module.exports = {
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new CompressionPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+      test: /\.jsx$|\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
       threshold: 10240,
       minRatio: 0.8
     })

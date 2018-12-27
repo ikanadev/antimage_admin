@@ -32,4 +32,4 @@ const App = () => (
   </Provider>
 )
 export default hot(module)(themeProv(App))
-// export default hot(module)(App)
+// export default themeProv(App)

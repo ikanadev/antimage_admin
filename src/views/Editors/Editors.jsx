@@ -1,11 +1,10 @@
 import React, { Fragment } from 'react'
 
-import Editor from '../../components/Contact/Main'
+import Editor from '../../components/Editor/Main'
 
 const Editors = props => (
   <Fragment>
-    ACA VAN LOS EDITORES
-    {/* <Editor {...props} /> */}
+    <Editor {...props} />
   </Fragment>
 )
 
